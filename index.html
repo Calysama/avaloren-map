@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carte interactive d'Avaloren</title>
+  <style>
+    body { margin: 0; font-family: sans-serif; background-color: #000; color: white; }
+    .map-container { position: relative; width: 100%; max-width: 1200px; margin: auto; }
+    .map-container img { width: 100%; height: auto; display: block; }
+    .zone {
+      position: absolute;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .tooltip {
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      padding: 8px;
+      border-radius: 5px;
+      display: none;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="map-container">
+    <img src="URL_DE_LA_CARTE.jpg" alt="Carte d'Avaloren" />
+
+    <div class="zone" style="top: 20%; left: 10%; width: 15%; height: 15%;" data-tooltip="Plage des Silences - Épaves, Journal, Barque"></div>
+    <div class="zone" style="top: 40%; left: 25%; width: 20%; height: 20%;" data-tooltip="Jungle d'Onaari - Campements, Pierres funéraires, Vent de l’Aube"></div>
+    <div class="zone" style="top: 65%; left: 60%; width: 20%; height: 20%;" data-tooltip="Temple de Xal’ateth - Ruines, Entité ancienne, Artefact"></div>
+
+    <div id="tooltip" class="tooltip"></div>
+  </div>
+
+  <script>
+    const zones = document.querySelectorAll('.zone');
+    const tooltip = document.getElementById('tooltip');
+
+    zones.forEach(zone => {
+      zone.addEventListener('mousemove', e => {
+        tooltip.style.display = 'block';
+        tooltip.style.top = (e.pageY + 15) + 'px';
+        tooltip.style.left = (e.pageX + 15) + 'px';
+        tooltip.textContent = zone.getAttribute('data-tooltip');
+      });
+      zone.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
